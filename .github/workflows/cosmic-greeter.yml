@@ -20,6 +20,7 @@ jobs:
     
     - name: Clone cosmic-greeter
       run: |
+        DEBIAN_FRONTEND=noninteractive apt install -y git
         git clone https://github.com/pop-os/cosmic-greeter.git
         cd cosmic-greeter
 

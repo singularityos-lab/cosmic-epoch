@@ -31,7 +31,7 @@ jobs:
           dpkg-dev \
           build-essential \
           debhelper-compat
-        DEBIAN_FRONTEND=noninteractive apt build-dep . -y
+        DEBIAN_FRONTEND=noninteractive apt build-dep -y
   
     - name: Build debian package
       run: |

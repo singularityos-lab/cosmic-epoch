@@ -50,7 +50,7 @@ jobs:
         rm -rf vendor
         cargo update && cargo vendor
         tar cf vendor.tar vendor
-        dpkg-buildpackage -b -uc -us
+        VENDOR=0 dpkg-buildpackage -b -uc -us
         mkdir -p $GITHUB_WORKSPACE/build-output
         mv ../*.deb $GITHUB_WORKSPACE/build-output/
 

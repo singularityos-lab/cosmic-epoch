@@ -1,5 +1,8 @@
 name: cosmic-greeter
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ "main" ]

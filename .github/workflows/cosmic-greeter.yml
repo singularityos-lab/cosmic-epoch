@@ -36,6 +36,7 @@ jobs:
   
     - name: Build debian package
       run: |
+        cd cosmic-greeter
         cargo vendor
         tar cf vendor.tar vendor
         dpkg-buildpackage -b -uc -us

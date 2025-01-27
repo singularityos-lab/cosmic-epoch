@@ -8,6 +8,9 @@ on:
     branches: [ "main" ]
   pull_request:
 
+env:
+  PACKAGE: cosmic-greeter
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,11 +24,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Clone cosmic-greeter
+    - name: Clone Package
       run: |
         DEBIAN_FRONTEND=noninteractive apt install -y git
-        git clone https://github.com/pop-os/cosmic-greeter.git
-        cd cosmic-greeter
+        git clone "https://github.com/pop-os/${{ env.PACKAGE }}.git"
+        cd "${{ env.PACKAGE }}"
 
     - name: Install needed packages
       run: |
@@ -34,12 +37,12 @@ jobs:
           dpkg-dev \
           build-essential \
           debhelper-compat
-        cd cosmic-greeter
+        cd "${{ env.PACKAGE }}"
         DEBIAN_FRONTEND=noninteractive apt build-dep -y .
   
     - name: Build debian package
       run: |
-        cd cosmic-greeter
+        cd "${{ env.PACKAGE }}"
         cargo vendor
         tar cf vendor.tar vendor
         dpkg-buildpackage -b -uc -us
@@ -49,7 +52,7 @@ jobs:
 
     - uses: actions/upload-artifact@v4
       with:
-        name: cosmic-greeter
+        name: "${{ env.PACKAGE }}"
         path: build-output/*.deb
 
     - uses: softprops/action-gh-release@v2

@@ -40,12 +40,14 @@ jobs:
         cargo vendor
         tar cf vendor.tar vendor
         dpkg-buildpackage -b -uc -us
+        mkdir -p $GITHUB_WORKSPACE/build-output
+        mv ../*.deb $GITHUB_WORKSPACE/build-output/
+
 
     - uses: actions/upload-artifact@v4
       with:
         name: cosmic-greeter
-        path: |
-            ../*.deb
+        path: build-output/*.deb
 
     - uses: softprops/action-gh-release@v2
       if: github.ref == 'refs/heads/main'
@@ -55,4 +57,4 @@ jobs:
         prerelease: true
         name: "Continuous Build"
         files: |
-            ../*.deb
+          build-output/*.deb

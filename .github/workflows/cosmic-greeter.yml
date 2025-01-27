@@ -6,7 +6,11 @@ permissions:
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - .github/workflows/cosmic-greeter.yml
   pull_request:
+    paths:
+      - .github/workflows/cosmic-greeter.yml
 
 env:
   PACKAGE: cosmic-greeter

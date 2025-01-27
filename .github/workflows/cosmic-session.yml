@@ -1,0 +1,70 @@
+name: cosmic-session
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/cosmic-session.yml
+  pull_request:
+    paths:
+      - .github/workflows/cosmic-session.yml
+
+env:
+  PACKAGE: cosmic-session
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/vanilla-os/pico:main
+      volumes:
+        - /proc:/proc
+        - /:/run/host
+      options: --privileged -it
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Clone Package
+      run: |
+        DEBIAN_FRONTEND=noninteractive apt install -y git
+        git clone "https://github.com/pop-os/${{ env.PACKAGE }}.git"
+        cd "${{ env.PACKAGE }}"
+
+    - name: Install needed packages
+      run: |
+        DEBIAN_FRONTEND=noninteractive apt update
+        DEBIAN_FRONTEND=noninteractive apt install -y \
+          dpkg-dev \
+          build-essential \
+          debhelper-compat
+        cd "${{ env.PACKAGE }}"
+        DEBIAN_FRONTEND=noninteractive apt build-dep -y .
+  
+    - name: Build debian package
+      run: |
+        cd "${{ env.PACKAGE }}"
+        cargo vendor
+        tar cf vendor.tar vendor
+        dpkg-buildpackage -b -uc -us
+        mkdir -p $GITHUB_WORKSPACE/build-output
+        mv ../*.deb $GITHUB_WORKSPACE/build-output/
+
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: "${{ env.PACKAGE }}"
+        path: build-output/*.deb
+
+    - uses: softprops/action-gh-release@v2
+      if: github.ref == 'refs/heads/main'
+      with:
+        token: "${{ secrets.GITHUB_TOKEN }}"
+        tag_name: "continuous"
+        prerelease: true
+        name: "Continuous Build"
+        files: |
+          build-output/*.deb

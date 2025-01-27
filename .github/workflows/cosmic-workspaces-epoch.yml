@@ -47,7 +47,8 @@ jobs:
     - name: Build debian package
       run: |
         cd "${{ env.PACKAGE }}"
-        cargo vendor
+        rm -rf vendor
+        cargo update && cargo vendor
         tar cf vendor.tar vendor
         dpkg-buildpackage -b -uc -us
         mkdir -p $GITHUB_WORKSPACE/build-output

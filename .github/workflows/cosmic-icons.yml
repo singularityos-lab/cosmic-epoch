@@ -1,4 +1,4 @@
-name: cosmic-icon
+name: cosmic-icons
 
 permissions:
   contents: write
@@ -7,13 +7,13 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - .github/workflows/cosmic-icon.yml
+      - .github/workflows/cosmic-icons.yml
   pull_request:
     paths:
-      - .github/workflows/cosmic-icon.yml
+      - .github/workflows/cosmic-icons.yml
 
 env:
-  PACKAGE: cosmic-icon
+  PACKAGE: cosmic-icons
 
 jobs:
   build:
@@ -47,8 +47,6 @@ jobs:
     - name: Build debian package
       run: |
         cd "${{ env.PACKAGE }}"
-        cargo vendor
-        tar cf vendor.tar vendor
         dpkg-buildpackage -b -uc -us
         mkdir -p $GITHUB_WORKSPACE/build-output
         mv ../*.deb $GITHUB_WORKSPACE/build-output/

@@ -51,11 +51,13 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/build-output
         mv ../*.deb $GITHUB_WORKSPACE/build-output/
 
-
     - uses: actions/upload-artifact@v4
       with:
         name: "${{ env.PACKAGE }}"
         path: build-output/*.deb
+    
+    - name: Delete old assets
+      run: bash scripts/delete_old_assets.sh "${{ env.PACKAGE }}"
 
     - uses: softprops/action-gh-release@v2
       if: github.ref == 'refs/heads/main'

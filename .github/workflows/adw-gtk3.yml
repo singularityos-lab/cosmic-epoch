@@ -57,7 +57,7 @@ jobs:
         path: build-output/*.deb
     
     - name: Delete old assets
-      run: bash scripts/delete_old_assets.sh "${{ env.PACKAGE }}"
+      run: bash scripts/delete_old_assets.sh "${{ env.PACKAGE }}" "${{ secrets.GITHUB_TOKEN }}"
 
     - uses: softprops/action-gh-release@v2
       if: github.ref == 'refs/heads/main'

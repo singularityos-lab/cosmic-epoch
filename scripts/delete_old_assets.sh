@@ -22,6 +22,7 @@ if [[ -z "$1" ]]; then
 fi
 
 PACKAGE="$1"
+GITHUB_TOKEN="$2"
 
 # Validators
 # ----------

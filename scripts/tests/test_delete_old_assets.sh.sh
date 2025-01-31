@@ -42,7 +42,8 @@ echo "Running unit test..."
 
 # Find all assets matching the package name
 # -----------------------------------------
-ASSETS=$(echo "$RELEASE_JSON" | jq -r '.assets[] | select(.name | startswith("'"$PACKAGE"'")) | "\(.id) \(.name)"')
+ASSETS=$(echo "$RELEASE_JSON" | jq -r \
+  '.assets[] | select(.name | test("^'"$PACKAGE"'(-dbgsym)?_.+")) | "\(.id) \(.name)"')
 
 if [[ -z "$ASSETS" ]]; then
   echo "No assets found for '$PACKAGE'. Nothing to test."

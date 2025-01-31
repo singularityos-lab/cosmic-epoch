@@ -23,7 +23,7 @@ PACKAGE="$1"
 # Validators
 # ----------
 if [[ -z "$GITHUB_REPOSITORY" ]]; then
-  GITHUB_REPOSITORY="vanilla-cosmic/cosmic-epoch"
+  GITHUB_REPOSITORY="singularityos-lab/cosmic-epoch"
 fi
 
 # Fetch the release details for the 'continuous' release

@@ -27,7 +27,7 @@ GITHUB_TOKEN="$2"
 # Validators
 # ----------
 if [[ -z "$GITHUB_REPOSITORY" ]]; then
-  GITHUB_REPOSITORY="vanilla-cosmic/cosmic-epoch"
+  GITHUB_REPOSITORY="singularityos-lab/cosmic-epoch"
 fi
 
 if [[ -z "$GITHUB_TOKEN" ]]; then

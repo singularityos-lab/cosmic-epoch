@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/xdg-desktop-portal-cosmic.yml
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: xdg-desktop-portal-cosmic

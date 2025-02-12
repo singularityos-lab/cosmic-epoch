@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/adw-gtk3.T
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: adw-gtk3

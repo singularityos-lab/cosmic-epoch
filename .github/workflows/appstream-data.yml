@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/appstream-data.yml
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: appstream-data

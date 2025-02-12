@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/gtk-theme.yml
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: gtk-theme

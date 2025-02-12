@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/cosmic-bg.yml
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: cosmic-bg

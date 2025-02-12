@@ -11,6 +11,8 @@ on:
   pull_request:
     paths:
       - .github/workflows/launcher.yml
+  schedule:
+    - cron: "0 3 * * *"
 
 env:
   PACKAGE: launcher

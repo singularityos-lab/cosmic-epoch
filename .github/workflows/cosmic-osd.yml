@@ -35,9 +35,12 @@ jobs:
         DEBIAN_FRONTEND=noninteractive apt install -y git
         git clone "https://github.com/pop-os/${{ env.PACKAGE }}.git"
         cd "${{ env.PACKAGE }}"
+        latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+        git checkout "$latest_tag"
 
     - name: Install needed packages
       run: |
+        apt install weget
         wget https://github.com/singularityos-lab/cosmic-epoch/releases/download/continuous/cosmic-randr_0.1.0_amd64.deb
         dpkg -i cosmic-randr*.deb
         DEBIAN_FRONTEND=noninteractive apt update

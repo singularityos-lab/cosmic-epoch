@@ -38,6 +38,8 @@ jobs:
 
     - name: Install needed packages
       run: |
+        wget https://github.com/singularityos-lab/cosmic-epoch/releases/download/continuous/cosmic-randr_0.1.0_amd64.deb
+        dpkg -i cosmic-randr*.deb
         DEBIAN_FRONTEND=noninteractive apt update
         DEBIAN_FRONTEND=noninteractive apt install -y \
           dpkg-dev \

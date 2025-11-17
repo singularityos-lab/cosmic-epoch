@@ -48,8 +48,16 @@ jobs:
           cd "${{ env.PACKAGE }}"
           DEBIAN_FRONTEND=noninteractive apt build-dep -y .
 
+      - name: Install latest Rust via rustup
+        run: |
+          curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable
+          echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> $GITHUB_ENV
+
       - name: Build debian package
         run: |
+          export PATH="$HOME/.cargo/bin:$PATH"
+          rustc --version
+          cargo --version
           cd "${{ env.PACKAGE }}"
           rm -rf vendor
           cargo update && cargo vendor

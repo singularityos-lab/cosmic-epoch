@@ -35,8 +35,6 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt install -y git
           git clone "https://github.com/pop-os/${{ env.PACKAGE }}.git"
           cd "${{ env.PACKAGE }}"
-          latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
-          git checkout "$latest_tag"
 
       - name: Install needed packages
         run: |
